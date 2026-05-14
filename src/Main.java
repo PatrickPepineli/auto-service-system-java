@@ -5,8 +5,10 @@ public class Main {
     public static void main(String[] args) {
 
         ArrayList<Cliente> clientes = new ArrayList<>();
+        ArrayList<Veiculo> veiculos = new ArrayList<>();
         Scanner sc = new Scanner(System.in);
         int contadorId = 1;
+        int contadorVeiculoId = 1;
 
 
         while (true) {
@@ -16,7 +18,9 @@ public class Main {
             System.out.println("2 - Listar Clientes");
             System.out.println("3 - Buscar Cliente");
             System.out.println("4 - Excluir Cliente");
-            System.out.println("5 - Sair");
+            System.out.println("5 - Cadastrar veículo");
+            System.out.println("6 - Listar veículos");
+            System.out.println("7 - Sair");
 
             int opcao = sc.nextInt();
             sc.nextLine();
@@ -120,6 +124,66 @@ public class Main {
                     break;
 
                 case 5:
+                    Veiculo novoVeiculo = new Veiculo();
+
+                    novoVeiculo.id = contadorVeiculoId;
+                    contadorVeiculoId++;
+
+                    System.out.println("Modelo: ");
+                    novoVeiculo.modelo = sc.nextLine();
+
+                    System.out.println("Marca: ");
+                    novoVeiculo.marca = sc.nextLine();
+
+                    System.out.println("Placa: ");
+                    novoVeiculo.placa = sc.nextLine();
+
+                    System.out.println("Ano: ");
+                    novoVeiculo.ano = sc.nextInt();
+                    sc.nextLine();
+
+                    System.out.println("Digite o ID do done do veículo: ");
+                    int IdDono = sc.nextInt();
+                    sc.nextLine();
+
+                    boolean donoEncontrado = false;
+
+                    for (int i =0; i < clientes.size(); i++) {
+                        Cliente c = clientes.get(i);
+
+                        if (c.id == IdDono) {
+                            novoVeiculo.dono = c;
+                            donoEncontrado = true;
+                        }
+                    }
+
+                    if (donoEncontrado) {
+                        veiculos.add(novoVeiculo);
+                        System.out.println("Veículo cadastrado! ");
+                    } else {
+                        System.out.println("Cliente não encontrado");
+                    }
+                    break;
+
+                case 6:
+                    if (veiculos.size() == 0) {
+                        System.out.println("Nenhum veículo cadastrado. ");
+                    } else {
+                        for (int i = 0; i < veiculos.size(); i++) {
+                            Veiculo v = veiculos.get(i);
+                            System.out.println("ID " + v.id +
+                                    " | Dono: " + v.dono.nome +
+                                    " | Modelo: " + v.modelo +
+                                    " | Marca: " + v.marca +
+                                    " | Placa: " + v.placa +
+                                    " | Ano: " + v.ano
+                            );
+                            System.out.println("---------------------------------------------------------------------------------");
+                        }
+                    }
+                    break;
+
+                case 7:
                     System.out.println("Saindo do programa! ");
                     sc.close();
                     return;

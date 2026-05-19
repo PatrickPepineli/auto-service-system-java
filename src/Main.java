@@ -17,10 +17,13 @@ public class Main {
             System.out.println("1 - Cadastrar Cliente");
             System.out.println("2 - Listar Clientes");
             System.out.println("3 - Buscar Cliente");
-            System.out.println("4 - Excluir Cliente");
-            System.out.println("5 - Cadastrar veículo");
-            System.out.println("6 - Listar veículos");
-            System.out.println("7 - Sair");
+            System.out.println("4 - Editar cliente");
+            System.out.println("5 - Excluir Cliente");
+            System.out.println("6 - Cadastrar veículo");
+            System.out.println("7 - Listar veículos");
+            System.out.println("8 - Editar veículo");
+            System.out.println("9 - Excluir veículo");
+            System.out.println("10 - Sair");
 
             int opcao = sc.nextInt();
             sc.nextLine();
@@ -90,6 +93,52 @@ public class Main {
                     break;
 
                 case 4:
+                    System.out.println("Digite o ID que deseja editar: ");
+                    int idEditar = sc.nextInt();
+
+                    boolean clienteEncontrado = false;
+
+                    for (int i = 0; i < clientes.size(); i++) {
+                        Cliente ce = clientes.get(i);
+
+                        if(ce.id == idEditar) {
+                            clienteEncontrado = true;
+
+                            System.out.println("Cliente encontrado! ");
+                            System.out.println(" ID: " + ce.id +
+                                               " | Nome: " + ce.nome +
+                                               " | Celular: " + ce.celular
+                            );
+
+                            System.out.println("Esse é o ID que deseja editar? " +
+                                               " ID: " + ce.id +
+                                               " | Nome: " + ce.nome +
+                                               " | Celular: " + ce.celular +
+                                               " | Digite s/n: "
+                            );
+                            sc.nextLine();
+                            String resposta = sc.nextLine();
+
+                            if (resposta.equalsIgnoreCase("s")) {
+
+                                System.out.println("Novo nome: ");
+                                ce.nome = sc.nextLine();
+
+                                System.out.println("Novo celular:");
+                                ce.celular = sc.nextLine();
+
+                                System.out.println("Cliente editado com sucesso! ");
+                            }
+
+                        }
+                    }
+                if (!clienteEncontrado) {
+                    System.out.println("Cliente não encontrado. ");
+
+                }
+                    break;
+
+                case 5:
                     System.out.println("Digite o ID que deseja excluir: ");
                     id = sc.nextInt();
 
@@ -123,7 +172,7 @@ public class Main {
                     }
                     break;
 
-                case 5:
+                case 6:
                     Veiculo novoVeiculo = new Veiculo();
 
                     novoVeiculo.id = contadorVeiculoId;
@@ -142,7 +191,7 @@ public class Main {
                     novoVeiculo.ano = sc.nextInt();
                     sc.nextLine();
 
-                    System.out.println("Digite o ID do done do veículo: ");
+                    System.out.println("Digite o ID do dono do veículo: ");
                     int IdDono = sc.nextInt();
                     sc.nextLine();
 
@@ -165,7 +214,7 @@ public class Main {
                     }
                     break;
 
-                case 6:
+                case 7:
                     if (veiculos.size() == 0) {
                         System.out.println("Nenhum veículo cadastrado. ");
                     } else {
@@ -183,7 +232,64 @@ public class Main {
                     }
                     break;
 
-                case 7:
+                case 8:
+                    System.out.println("Digite o ID do carro que deseja editar: ");
+                    int veiculoId = sc.nextInt();
+
+                    boolean veiculoEncontrado = false;
+
+                    for ( int i = 0; i < veiculos.size(); i++) {
+                        Veiculo ve = veiculos.get(i);
+
+                        if (ve.id == veiculoId) {
+                            veiculoEncontrado = true;
+
+                            System.out.println("Veiculo encontrado! ");
+                            System.out.println("ID: " + ve.id +
+                                               " | Modelo: " + ve.modelo +
+                                               " | Marca: " + ve.marca +
+                                               " | Placa: " + ve.placa +
+                                               " | Ano: " + ve.ano
+                            );
+
+                            System.out.println("Esse é o veículo que deseja editar? " +
+                                              "ID: " + ve.id +
+                                              " | Modelo: " + ve.modelo +
+                                              " | Marca: " + ve.marca +
+                                              " | Placa: " + ve.placa +
+                                              " | Ano: " + ve.ano +
+                                              " | Digite s/n: "
+                            );
+                            sc.nextLine();
+                            String resposta = sc.nextLine();
+
+                            if (resposta.equalsIgnoreCase("s")) {
+
+                                System.out.println("Novo modelo: ");
+                                ve.modelo = sc.nextLine();
+
+                                System.out.println("Nova marca: ");
+                                ve.marca = sc.nextLine();
+
+                                System.out.println("Nova placa: ");
+                                ve.placa = sc.nextLine();
+
+                                System.out.println("Novo ano: ");
+                                ve.ano = sc.nextInt();
+                                sc.nextLine();
+
+                                System.out.println("Veículo editado com sucesso! ");
+                            }
+                        }
+                    }
+
+                if (!veiculoEncontrado) {
+
+                    System.out.println("Veiculo não encontrado! ");
+                }
+                    break;
+
+                case 10:
                     System.out.println("Saindo do programa! ");
                     sc.close();
                     return;

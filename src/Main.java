@@ -6,9 +6,11 @@ public class Main {
 
         ArrayList<Cliente> clientes = new ArrayList<>();
         ArrayList<Veiculo> veiculos = new ArrayList<>();
+        ArrayList<OrdemServico> ordensServico = new ArrayList<>();
         Scanner sc = new Scanner(System.in);
         int contadorId = 1;
         int contadorVeiculoId = 1;
+        int contadorOrdemServicoId = 1;
 
 
         while (true) {
@@ -23,7 +25,9 @@ public class Main {
             System.out.println("7 - Listar veículos");
             System.out.println("8 - Editar veículo");
             System.out.println("9 - Excluir veículo");
-            System.out.println("10 - Sair");
+            System.out.println("10 - Cadastrar Ordem de serviço:");
+            System.out.println("11 - Listar Ordens de Serviço:");
+            System.out.println("12 - Sair");
 
             int opcao = sc.nextInt();
             sc.nextLine();
@@ -151,7 +155,7 @@ public class Main {
                             System.out.println("ID encontrado: ");
                             System.out.println("Esse é o ID que deseja excluir? "  +
                                     "ID: " + c.id  +
-                                    " | " + c.nome +
+                                    " | Nome: " + c.nome +
                                     " | Digite s/n: "
                             );
                             sc.nextLine();
@@ -289,7 +293,52 @@ public class Main {
                 }
                     break;
 
+                case 9:
+                    System.out.println("Digite o ID do veiculo que deseja excluir! ");
+                    id = sc.nextInt();
+
+                    boolean veiculoRemovido = false;
+
+                    for (int i = 0; i <veiculos.size(); i++) {
+                        Veiculo vr = veiculos.get(i);
+
+                      if (vr.id == id) {
+                          System.out.println("ID encontrado: ");
+                          System.out.println("Esse é o Veículo que deseja excluir? " +
+                                  "ID: " + vr.id +
+                                  " | Modelo: " + vr.modelo +
+                                  " | Marca: " + vr.marca +
+                                  " | Ano: " + vr.ano +
+                                  " | Dono: " + vr.dono.nome +
+                                  " | Digite s/n: "
+                          );
+                          sc.nextLine();
+                          String resposta = sc.nextLine();
+
+                          if (resposta.equalsIgnoreCase("s")) {
+                              veiculos.remove(i);
+                              veiculoRemovido = true;
+
+                              System.out.println("Veículo removido com sucesso! ");
+
+                              break;
+                          }
+                      }
+                    }
+                    if (!veiculoRemovido) {
+                        System.out.println("Veículo não encontrado. ");
+                    }
+                    break;
+
                 case 10:
+                    ordensServico novoServico = new OrdemServico();
+
+                    novoServico.id = contadorOrdemServicoId;
+                    contadorOrdemServicoId++;
+
+
+
+                case 12:
                     System.out.println("Saindo do programa! ");
                     sc.close();
                     return;

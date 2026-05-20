@@ -6,26 +6,27 @@ public class Main {
 
         ArrayList<Cliente> clientes = new ArrayList<>();
         ArrayList<Veiculo> veiculos = new ArrayList<>();
-        ArrayList<OrdemServico> ordensServico = new ArrayList<>();
         Scanner sc = new Scanner(System.in);
         int contadorId = 1;
         int contadorVeiculoId = 1;
-        int contadorOrdemServicoId = 1;
+
 
 
         while (true) {
 
-            System.out.println("______________Menu______________");
+            System.out.println("========== MENU ==========");
             System.out.println("1 - Cadastrar Cliente");
             System.out.println("2 - Listar Clientes");
             System.out.println("3 - Buscar Cliente");
             System.out.println("4 - Editar cliente");
             System.out.println("5 - Excluir Cliente");
+            System.out.println();
             System.out.println("6 - Cadastrar veículo");
             System.out.println("7 - Listar veículos");
             System.out.println("8 - Editar veículo");
             System.out.println("9 - Excluir veículo");
-            System.out.println("10 - Cadastrar Ordem de serviço:");
+            System.out.println();
+            System.out.println("10 - Exibir menu de serviços");
             System.out.println("11 - Listar Ordens de Serviço:");
             System.out.println("12 - Sair");
 
@@ -331,12 +332,60 @@ public class Main {
                     break;
 
                 case 10:
-                    ordensServico novoServico = new OrdemServico();
 
-                    novoServico.id = contadorOrdemServicoId;
-                    contadorOrdemServicoId++;
+                    System.out.println("============= SERVIÇOS =============");
 
+                    System.out.println("1 - Retifica de Motores:");
+                    System.out.println(" 2 - Retifica de Cabeçote");
+                    System.out.println(" 3 - Planejamento de Cabeçote");
+                    System.out.println(" 4 - Virabrequim");
+                    System.out.println(" 5 - Teste de Trinca");
+                    System.out.println(" 6 - Montagem Técinca");
+                    System.out.println(" 7 - Motores Diesel");
+                    System.out.println(" 8 - Motores Gasolina e Flex");
+                    System.out.println(" 9 - Cabeçotes de Alumínio e Ferro Fundido");
 
+                    System.out.println("Digite o ID do serviço desejado:");
+                    int opcaoServico = sc.nextInt();
+                    sc.nextLine();
+
+                    String servicoSelecionado = "";
+
+                    switch (opcaoServico) {
+
+                        case 1:
+                            System.out.println("1 - Parcial");
+                            System .out.println("2 - Completa");
+
+                            int categoria = sc.nextInt();
+                            sc.nextLine();
+
+                            if (categoria == 1) {
+                                servicoSelecionado = " Retífica de Motores - Parcial";
+                            } else if (categoria == 2) {
+                                servicoSelecionado = " Retífica de Motores - Completa";
+                            }
+
+                            break;
+
+                        case 2:
+                            System.out.println("1 - Simples");
+                            System.out.println("2 - Intermediária");
+                            System.out.println("3 - Pesada");
+
+                            categoria = sc.nextInt();
+                            sc.nextLine();
+
+                            if(categoria == 1) {
+                                servicoSelecionado = "Retífica de Cabeçote - Simples";
+                            } else if (categoria == 2) {
+                                servicoSelecionado = "Retífica de Cabeçote - Intermediaria";
+                            } else {
+                                servicoSelecionado = "Retífica de Cabeçote - Completa";
+                            }
+
+                            break;
+                    }
 
                 case 12:
                     System.out.println("Saindo do programa! ");

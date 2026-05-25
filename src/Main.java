@@ -6,9 +6,11 @@ public class Main {
 
         ArrayList<Cliente> clientes = new ArrayList<>();
         ArrayList<Veiculo> veiculos = new ArrayList<>();
+        ArrayList<OrdemServico> ordensServico = new ArrayList<>();
         Scanner sc = new Scanner(System.in);
         int contadorId = 1;
         int contadorVeiculoId = 1;
+        int contadorOS = 1;
 
 
 
@@ -333,6 +335,32 @@ public class Main {
 
                 case 10:
 
+                    OrdemServico novaOS = new OrdemServico();
+
+                    System.out.println("DIgite o ID do veículo: ");
+                    int idVeiculo = sc.nextInt();
+                    sc.nextLine();
+
+                    boolean veiculoencontrado = false;
+
+                    for (int i = 0; i < veiculos.size(); i++) {
+                       Veiculo iDv = veiculos.get(i);
+
+                        if (iDv.id == idVeiculo) {
+                            veiculoencontrado = true;
+                            novaOS.veiculo = iDv;
+                            System.out.println("Veículo encontrado e vinculado à OS! ");
+
+                            break;
+                        }
+                    }
+
+                    if (!veiculoencontrado) {
+                        System.out.println("Veiculo não encontrado! ");
+                        break;
+                    }
+
+
                     System.out.println("============= SERVIÇOS =============");
 
                     System.out.println("1 - Retifica de Motores:");
@@ -361,9 +389,9 @@ public class Main {
                             sc.nextLine();
 
                             if (categoria == 1) {
-                                servicoSelecionado = " Retífica de Motores - Parcial";
+                               novaOS.servico = servicoSelecionado = " Retífica de Motores - Parcial";
                             } else if (categoria == 2) {
-                                servicoSelecionado = " Retífica de Motores - Completa";
+                               novaOS.servico = servicoSelecionado = " Retífica de Motores - Completa";
                             }
 
                             break;
@@ -377,15 +405,39 @@ public class Main {
                             sc.nextLine();
 
                             if(categoria == 1) {
-                                servicoSelecionado = "Retífica de Cabeçote - Simples";
+                               novaOS.servico = servicoSelecionado = "Retífica de Cabeçote - Simples";
                             } else if (categoria == 2) {
-                                servicoSelecionado = "Retífica de Cabeçote - Intermediaria";
+                               novaOS.servico = servicoSelecionado = "Retífica de Cabeçote - Intermediaria";
                             } else {
-                                servicoSelecionado = "Retífica de Cabeçote - Completa";
+                                novaOS.servico = servicoSelecionado = "Retífica de Cabeçote - Completa";
                             }
 
                             break;
+
                     }
+                    novaOS.id = contadorOS;
+                    contadorOS++;
+
+                    novaOS.status = "Aberta";
+                    ordensServico.add(novaOS);
+                    System.out.println("Ordem de serviço criada com sucesso! ");
+                    break;
+
+                case 11:
+                    if (ordensServico.size() == 0) {
+                        System.out.println("Nenhuma O.S. cadastrada! ");
+                    } else {
+                        for (int i = 0; i < ordensServico.size(); i++) {
+                            OrdemServico os = ordensServico.get(i);
+                            System.out.println("OS: " + os.id +
+                                               " | Cliente: " + os.veiculo.dono.nome +
+                                               " | Veículo: "+ os.veiculo.modelo +
+                                               " | Serviço: " + os.servico +
+                                               " | Status: " + os.status
+                            );
+                        }
+                    }
+                    break;
 
                 case 12:
                     System.out.println("Saindo do programa! ");

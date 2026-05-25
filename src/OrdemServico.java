@@ -2,6 +2,7 @@ public class OrdemServico {
 
     int id;
     Veiculo veiculo;
+    Veiculo modelo;
     String servico;
     String categoria;
     double valor;

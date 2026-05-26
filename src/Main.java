@@ -1,5 +1,7 @@
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
+
 
 public class Main {
     public static void main(String[] args) {
@@ -7,12 +9,36 @@ public class Main {
         ArrayList<Cliente> clientes = new ArrayList<>();
         ArrayList<Veiculo> veiculos = new ArrayList<>();
         ArrayList<OrdemServico> ordensServico = new ArrayList<>();
+
         Scanner sc = new Scanner(System.in);
+
         int contadorId = 1;
         int contadorVeiculoId = 1;
         int contadorOS = 1;
 
+        Scanner sc2 = new Scanner(System.in);
 
+        try {
+            BufferedReader reader = new BufferedReader(
+                    new FileReader("clientes.txt")
+            );
+
+            String linha;
+
+            while ((linha = reader.readLine()) != null) {
+                String [] dados = linha.split(";");
+                Cliente cliente = new Cliente();
+                cliente.id = Integer.parseInt(dados[0]);
+                cliente.nome = dados[1];
+                cliente.celular = dados[2];
+
+                clientes.add(cliente);
+            }
+            reader.close();
+
+        }catch (IOException e ) {
+            System.out.println("Erro ao carregar  clientes.");
+        }
 
         while (true) {
 
@@ -50,6 +76,25 @@ public class Main {
                     novoCliente.celular = sc.nextLine();
 
                     clientes.add(novoCliente);
+
+                    try {
+
+                        BufferedWriter writer = new BufferedWriter( new FileWriter("clientes.txt", true)
+                        );
+
+                        writer.write (
+                                novoCliente.id + ";" +
+                                novoCliente.nome + ";" +
+                                novoCliente.celular + ";"
+                        );
+
+                        writer.newLine();
+
+                        writer.close();
+                    } catch (IOException e) {
+
+                        System.out.println("Erro ao salvar o cliente. ");
+                    }
 
                     System.out.println("Cliente cadastrado! ");
                     System.out.println();
@@ -425,7 +470,7 @@ public class Main {
 
                 case 11:
                     if (ordensServico.size() == 0) {
-                        System.out.println("Nenhuma O.S. cadastrada! ");
+                        System.out.println("Nenhuma O.S.- cadastrada! ");
                     } else {
                         for (int i = 0; i < ordensServico.size(); i++) {
                             OrdemServico os = ordensServico.get(i);

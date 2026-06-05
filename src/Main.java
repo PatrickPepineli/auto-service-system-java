@@ -260,6 +260,29 @@ public class Main {
 
                     if (donoEncontrado) {
                         veiculos.add(novoVeiculo);
+
+                        try {
+                            BufferedWriter writer = new BufferedWriter(new FileWriter("veiculos.txt", true)
+                            );
+
+
+                            writer.write (
+                                            novoVeiculo.id +  ";" +
+                                            novoVeiculo.modelo + " " +
+                                            novoVeiculo.marca + ";" +
+                                            novoVeiculo.placa + ";" +
+                                                novoVeiculo.ano + ";" +
+                                                novoVeiculo.dono.id
+                            );
+
+                            writer.newLine();
+
+                            writer.close();
+                        } catch (IOException ex) {
+
+                            System.out.println("Erro ao salvar o veículo. ");
+                        }
+
                         System.out.println("Veículo cadastrado! ");
                     } else {
                         System.out.println("Cliente não encontrado");
@@ -394,6 +417,7 @@ public class Main {
                         if (iDv.id == idVeiculo) {
                             veiculoencontrado = true;
                             novaOS.veiculo = iDv;
+
                             System.out.println("Veículo encontrado e vinculado à OS! ");
 
                             break;
@@ -457,16 +481,38 @@ public class Main {
                                 novaOS.servico = servicoSelecionado = "Retífica de Cabeçote - Completa";
                             }
 
-                            break;
 
-                    }
+
+
                     novaOS.id = contadorOS;
                     contadorOS++;
 
                     novaOS.status = "Aberta";
                     ordensServico.add(novaOS);
+
+                    try {
+                        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("OrdensDeServico.txt", true)
+                        );
+
+                        bufferedWriter.write (
+                                        novaOS.id + ";" +
+                                        novaOS.veiculo.id + ";" +
+                                        novaOS.servico + ";" +
+                                        novaOS.status
+                        );
+
+                        bufferedWriter.newLine();
+
+                        bufferedWriter.close();
+                    } catch (IOException ex) {
+
+                        System.out.println("Erro ao abrir o ordensDeServico.txt");
+                    }
+
                     System.out.println("Ordem de serviço criada com sucesso! ");
+
                     break;
+            }
 
                 case 11:
                     if (ordensServico.size() == 0) {

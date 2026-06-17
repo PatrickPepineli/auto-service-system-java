@@ -7,4 +7,7 @@ public class OrdemServico {
     String categoria;
     double valor;
     String status;
+
+    public void add() {
+    }
 }

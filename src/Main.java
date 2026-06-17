@@ -40,6 +40,60 @@ public class Main {
             System.out.println("Erro ao carregar  clientes.");
         }
 
+        try {
+            BufferedReader reader = new BufferedReader(
+                    new FileReader("veiculos.txt")
+            );
+
+            String linha;
+
+            while ((linha = reader.readLine()) != null) {
+                String [] dados = linha.split(";");
+                Veiculo veiculo = new Veiculo();
+                veiculo.id = Integer.parseInt(dados[0]);
+                veiculo.modelo = dados[1];
+                veiculo.marca = dados[2];
+                veiculo.placa = dados[3];
+                veiculo.ano = Integer.parseInt(dados[4]);
+                int idDono = Integer.parseInt(dados[5]);
+
+                veiculos.add(veiculo);
+            }
+            reader.close();
+        }catch (IOException e) {
+            System.out.println("Erro ao carregar veículos.");
+        }
+
+        try {
+            BufferedReader reader = new BufferedReader(
+                    new FileReader ("OrdemServico.txt")
+            );
+
+            String linha;
+
+            while ((linha = reader.readLine()) != null) {
+                String [] dados = linha.split(";");
+                OrdemServico ordemServico = new OrdemServico();
+                ordemServico.id = Integer.parseInt(dados[0]);
+                int idVeiculo = Integer.parseInt(dados[1]);
+                for (int i=0; i < veiculos.size(); i++) {
+                    Veiculo v = veiculos.get(i);
+
+                    if (v.id == idVeiculo) {
+                        ordensServico.veiculo = v;
+                        break;
+                    }
+                }
+                ordemServico.servico = dados[2];
+                ordemServico.status = dados[3];
+
+                ordensServico.add(ordemServico);
+            }
+            reader.close();
+        }catch (IOException e) {
+            System.out.println("Erro ao carregar OrdemServico.");
+        }
+
         while (true) {
 
             System.out.println("========== MENU ==========");
@@ -114,6 +168,7 @@ public class Main {
                             System.out.println("------------------------------------------");
 
                         }
+
                     }
                     break;
 
@@ -268,7 +323,7 @@ public class Main {
 
                             writer.write (
                                             novoVeiculo.id +  ";" +
-                                            novoVeiculo.modelo + " " +
+                                            novoVeiculo.modelo + ";" +
                                             novoVeiculo.marca + ";" +
                                             novoVeiculo.placa + ";" +
                                                 novoVeiculo.ano + ";" +
@@ -446,21 +501,19 @@ public class Main {
                     int opcaoServico = sc.nextInt();
                     sc.nextLine();
 
-                    String servicoSelecionado = "";
-
                     switch (opcaoServico) {
 
                         case 1:
                             System.out.println("1 - Parcial");
-                            System .out.println("2 - Completa");
+                            System.out.println("2 - Completa");
 
                             int categoria = sc.nextInt();
                             sc.nextLine();
 
                             if (categoria == 1) {
-                               novaOS.servico = servicoSelecionado = " Retífica de Motores - Parcial";
+                                novaOS.servico = " Retífica de Motores - Parcial";
                             } else if (categoria == 2) {
-                               novaOS.servico = servicoSelecionado = " Retífica de Motores - Completa";
+                                novaOS.servico = " Retífica de Motores - Completa";
                             }
 
                             break;
@@ -473,46 +526,81 @@ public class Main {
                             categoria = sc.nextInt();
                             sc.nextLine();
 
-                            if(categoria == 1) {
-                               novaOS.servico = servicoSelecionado = "Retífica de Cabeçote - Simples";
+                            if (categoria == 1) {
+                                novaOS.servico = "Retífica de Cabeçote - Simples";
                             } else if (categoria == 2) {
-                               novaOS.servico = servicoSelecionado = "Retífica de Cabeçote - Intermediaria";
+                                novaOS.servico = "Retífica de Cabeçote - Intermediaria";
                             } else {
-                                novaOS.servico = servicoSelecionado = "Retífica de Cabeçote - Completa";
+                                novaOS.servico = "Retífica de Cabeçote - Completa";
                             }
+                            break;
 
+                        case 3:
+                            novaOS.servico = "Planejamento de cabeçote";
+                            break;
 
+                        case 4:
+                            novaOS.servico = "Virabrequim";
+                            break;
 
+                        case 5:
+                            novaOS.servico = "Teste de trinca";
+                            break;
 
-                    novaOS.id = contadorOS;
-                    contadorOS++;
+                        case 6:
+                            novaOS.servico = "Montagem técnica";
+                            break;
 
-                    novaOS.status = "Aberta";
-                    ordensServico.add(novaOS);
+                        case 7:
+                            novaOS.servico = "Motores Diesel";
+                            break;
 
-                    try {
-                        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("OrdensDeServico.txt", true)
-                        );
+                        case 8:
+                            novaOS.servico = "Motores Gasolina e Flex";
+                            break;
 
-                        bufferedWriter.write (
-                                        novaOS.id + ";" +
-                                        novaOS.veiculo.id + ";" +
-                                        novaOS.servico + ";" +
-                                        novaOS.status
-                        );
+                        case 9:
+                            novaOS.servico = "Cabeçotes Alumínio e flex";
+                            break;
 
-                        bufferedWriter.newLine();
-
-                        bufferedWriter.close();
-                    } catch (IOException ex) {
-
-                        System.out.println("Erro ao abrir o ordensDeServico.txt");
+                        default:
+                            System.out.println("Serviço inválido");
+                            break;
                     }
 
-                    System.out.println("Ordem de serviço criada com sucesso! ");
+                    if (novaOS.servico == null) {
+                        break;
+                    }
 
-                    break;
-            }
+                    novaOS.id = contadorOS;
+                     contadorOS++;
+
+                        novaOS.status = "Aberta";
+                ordensServico.add(novaOS);
+
+                try {
+                    BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("OrdensDeServico.txt", true)
+                    );
+
+                    bufferedWriter.write (
+                            novaOS.id + ";" +
+                                    novaOS.veiculo.id + ";" +
+                                    novaOS.servico + ";" +
+                                    novaOS.status
+                    );
+
+                    bufferedWriter.newLine();
+
+                    bufferedWriter.close();
+                } catch (IOException ex) {
+
+                    System.out.println("Erro ao abrir o ordensDeServico.txt");
+                }
+
+                System.out.println("Ordem de serviço criada com sucesso! ");
+
+                break;
+
 
                 case 11:
                     if (ordensServico.size() == 0) {

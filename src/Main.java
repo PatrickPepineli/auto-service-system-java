@@ -55,7 +55,17 @@ public class Main {
                 veiculo.marca = dados[2];
                 veiculo.placa = dados[3];
                 veiculo.ano = Integer.parseInt(dados[4]);
+
                 int idDono = Integer.parseInt(dados[5]);
+
+                for( int i = 0; i < clientes.size(); i++) {
+                    Cliente cliente = clientes.get(i);
+
+                    if(cliente.id==idDono){
+                        veiculo.dono = cliente;
+                        break;
+                    }
+                }
 
                 veiculos.add(veiculo);
             }
@@ -78,9 +88,13 @@ public class Main {
                 int idVeiculo = Integer.parseInt(dados[1]);
                 for (int i=0; i < veiculos.size(); i++) {
                     Veiculo v = veiculos.get(i);
+                    if(ordemServico == null) {
+                        System.out.println("Veículo da O.Ss não encontrado! ");
+                        continue;
+                    }
 
                     if (v.id == idVeiculo) {
-                        ordensServico.veiculo = v;
+                        ordemServico.veiculo = v;
                         break;
                     }
                 }

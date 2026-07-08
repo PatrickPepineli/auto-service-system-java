@@ -36,6 +36,10 @@ public class Main {
             }
             reader.close();
 
+            if( !clientes.isEmpty()) {
+                contadorId = clientes.get(clientes.size() - 1).id + 1;
+            }
+
         }catch (IOException e ) {
             System.out.println("Erro ao carregar  clientes.");
         }
@@ -70,13 +74,18 @@ public class Main {
                 veiculos.add(veiculo);
             }
             reader.close();
+
+            if(!veiculos.isEmpty()) {
+                contadorVeiculoId = veiculos.get(veiculos.size() - 1).id + 1;
+            }
+
         }catch (IOException e) {
             System.out.println("Erro ao carregar veículos.");
         }
 
         try {
             BufferedReader reader = new BufferedReader(
-                    new FileReader ("OrdemServico.txt")
+                    new FileReader ("OrdensDeServico.txt")
             );
 
             String linha;
@@ -104,6 +113,11 @@ public class Main {
                 ordensServico.add(ordemServico);
             }
             reader.close();
+
+            if(!ordensServico.isEmpty()) {
+                contadorOS = ordensServico.get(ordensServico.size()-1).id + 1;
+            }
+
         }catch (IOException e) {
             System.out.println("Erro ao carregar OrdemServico.");
         }
@@ -169,21 +183,7 @@ public class Main {
                     break;
 
                 case 2:
-                    if (clientes.size() == 0) {
-                        System.out.println("Nenhum cliente cadastrado. ");
-                    } else {
-                        for (int i = 0; i < clientes.size(); i++) {
-                            Cliente c = clientes.get(i);
-                            System.out.println(
-                                    "ID " + c.id +
-                                            " | Nome: " + c.nome +
-                                            " | Celular: " + c.celular
-                            );
-                            System.out.println("------------------------------------------");
-
-                        }
-
-                    }
+                    listarClientes(clientes);
                     break;
 
                 case 3:
@@ -645,4 +645,23 @@ public class Main {
 
 
         }
+        public static void listarClientes(ArrayList<Cliente> clientes) {
+            if (clientes.size() == 0) {
+                System.out.println("Nenhum cliente cadastrado. ");
+            } else {
+                for (int i = 0; i < clientes.size(); i++) {
+                    Cliente c = clientes.get(i);
+                    System.out.println(
+                            "ID " + c.id +
+                                    " | Nome: " + c.nome +
+                                    " | Celular: " + c.celular
+                    );
+                    System.out.println("------------------------------------------");
+
+                }
+
+            }
+        }
+
+
     }

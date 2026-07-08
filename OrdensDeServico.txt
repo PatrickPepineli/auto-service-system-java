@@ -1,3 +1,3 @@
-1;1;Retífica de Cabeçote - Simples;Aberta
-2;3; Retífica de Motores - Completa;Aberta
-3;2;Teste de trinca;Aberta
+1;1; Retífica de Motores - Completa;Aberta
+2;2;Virabrequim;Aberta
+3;3;Planejamento de cabeçote;Aberta

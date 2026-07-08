@@ -603,19 +603,7 @@ public class Main {
 
 
                 case 11:
-                    if (ordensServico.size() == 0) {
-                        System.out.println("Nenhuma O.S.- cadastrada! ");
-                    } else {
-                        for (int i = 0; i < ordensServico.size(); i++) {
-                            OrdemServico os = ordensServico.get(i);
-                            System.out.println("OS: " + os.id +
-                                               " | Cliente: " + os.veiculo.dono.nome +
-                                               " | Veículo: "+ os.veiculo.modelo +
-                                               " | Serviço: " + os.servico +
-                                               " | Status: " + os.status
-                            );
-                        }
-                    }
+                   listarOrdensServico(ordensServico);
                     break;
 
                 case 12:
@@ -631,6 +619,10 @@ public class Main {
 
 
         }
+
+        // =========================================
+        // MÉTODOS DE CLIENTES
+        // =========================================
 
         public static void listarClientes(ArrayList<Cliente> clientes) {
             if (clientes.size() == 0) {
@@ -650,6 +642,10 @@ public class Main {
             }
         }
 
+        // =========================================
+        // MÉTODOS DE VEÍCULOS
+        // =========================================
+
         public static void listarVeiculos(ArrayList<Veiculo> veiculos) {
             if (veiculos.size() == 0) {
                 System.out.println("Nenhum veículo cadastrado. ");
@@ -664,6 +660,26 @@ public class Main {
                             " | Ano: " + v.ano
                     );
                     System.out.println("---------------------------------------------------------------------------------");
+                }
+            }
+        }
+
+        // =========================================
+        // MÉTODOS DE ORDENS DE SERVIÇO
+        // =========================================
+
+        public static void listarOrdensServico(ArrayList<OrdemServico> ordensServico) {
+            if (ordensServico.size() == 0) {
+                System.out.println("Nenhuma O.S.- cadastrada! ");
+            } else {
+                for (int i = 0; i < ordensServico.size(); i++) {
+                    OrdemServico os = ordensServico.get(i);
+                    System.out.println("OS: " + os.id +
+                            " | Cliente: " + os.veiculo.dono.nome +
+                            " | Veículo: "+ os.veiculo.modelo +
+                            " | Serviço: " + os.servico +
+                            " | Status: " + os.status
+                    );
                 }
             }
         }

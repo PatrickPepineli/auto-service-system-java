@@ -359,21 +359,7 @@ public class Main {
                     break;
 
                 case 7:
-                    if (veiculos.size() == 0) {
-                        System.out.println("Nenhum veículo cadastrado. ");
-                    } else {
-                        for (int i = 0; i < veiculos.size(); i++) {
-                            Veiculo v = veiculos.get(i);
-                            System.out.println("ID " + v.id +
-                                    " | Dono: " + v.dono.nome +
-                                    " | Modelo: " + v.modelo +
-                                    " | Marca: " + v.marca +
-                                    " | Placa: " + v.placa +
-                                    " | Ano: " + v.ano
-                            );
-                            System.out.println("---------------------------------------------------------------------------------");
-                        }
-                    }
+                    listarVeiculos(veiculos);
                     break;
 
                 case 8:
@@ -645,6 +631,7 @@ public class Main {
 
 
         }
+
         public static void listarClientes(ArrayList<Cliente> clientes) {
             if (clientes.size() == 0) {
                 System.out.println("Nenhum cliente cadastrado. ");
@@ -660,6 +647,24 @@ public class Main {
 
                 }
 
+            }
+        }
+
+        public static void listarVeiculos(ArrayList<Veiculo> veiculos) {
+            if (veiculos.size() == 0) {
+                System.out.println("Nenhum veículo cadastrado. ");
+            } else {
+                for (int i = 0; i < veiculos.size(); i++) {
+                    Veiculo v = veiculos.get(i);
+                    System.out.println("ID " + v.id +
+                            " | Dono: " + v.dono.nome +
+                            " | Modelo: " + v.modelo +
+                            " | Marca: " + v.marca +
+                            " | Placa: " + v.placa +
+                            " | Ano: " + v.ano
+                    );
+                    System.out.println("---------------------------------------------------------------------------------");
+                }
             }
         }
 

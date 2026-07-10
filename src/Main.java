@@ -195,37 +195,7 @@ public class Main {
                     break;
 
                 case 5:
-                    System.out.println("Digite o ID que deseja excluir: ");
-                    int id = sc.nextInt();
-
-                    boolean removido = false;
-
-                    for (int i = 0; i < clientes.size(); i++) {
-                        Cliente c = clientes.get(i);
-
-                        if (c.id == id) {
-                            System.out.println("ID encontrado: ");
-                            System.out.println("Esse é o ID que deseja excluir? "  +
-                                    "ID: " + c.id  +
-                                    " | Nome: " + c.nome +
-                                    " | Digite s/n: "
-                            );
-                            sc.nextLine();
-                            String resposta = sc.nextLine();
-
-                            if (resposta.equalsIgnoreCase("s")) {
-                                clientes.remove(i);
-                                removido = true;
-
-                                System.out.println("CLliente removido com sucesso! ");
-
-                                break;
-                            }
-                        }
-                    }
-                    if (!removido) {
-                        System.out.println("Cliente não encontrado. ");
-                    }
+                    excluirCliente(clientes, sc);
                     break;
 
                 case 6:
@@ -356,7 +326,7 @@ public class Main {
 
                 case 9:
                     System.out.println("Digite o ID do veiculo que deseja excluir! ");
-                    id = sc.nextInt();
+                    int id = sc.nextInt();
 
                     boolean veiculoRemovido = false;
 
@@ -647,6 +617,40 @@ public class Main {
             if (!clienteEncontrado) {
                 System.out.println("Cliente não encontrado. ");
 
+            }
+        }
+
+        public static void excluirCliente(ArrayList<Cliente> clientes, Scanner sc) {
+            System.out.println("Digite o ID que deseja excluir: ");
+            int id = sc.nextInt();
+
+            boolean removido = false;
+
+            for (int i = 0; i < clientes.size(); i++) {
+                Cliente c = clientes.get(i);
+
+                if (c.id == id) {
+                    System.out.println("ID encontrado: ");
+                    System.out.println("Esse é o ID que deseja excluir? "  +
+                            "ID: " + c.id  +
+                            " | Nome: " + c.nome +
+                            " | Digite s/n: "
+                    );
+                    sc.nextLine();
+                    String resposta = sc.nextLine();
+
+                    if (resposta.equalsIgnoreCase("s")) {
+                        clientes.remove(i);
+                        removido = true;
+
+                        System.out.println("CLliente removido com sucesso! ");
+
+                        break;
+                    }
+                }
+            }
+            if (!removido) {
+                System.out.println("Cliente não encontrado. ");
             }
         }
 

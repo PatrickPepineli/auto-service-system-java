@@ -191,49 +191,7 @@ public class Main {
                     break;
 
                 case 4:
-                    System.out.println("Digite o ID que deseja editar: ");
-                    int idEditar = sc.nextInt();
-
-                    boolean clienteEncontrado = false;
-
-                    for (int i = 0; i < clientes.size(); i++) {
-                        Cliente ce = clientes.get(i);
-
-                        if(ce.id == idEditar) {
-                            clienteEncontrado = true;
-
-                            System.out.println("Cliente encontrado! ");
-                            System.out.println(" ID: " + ce.id +
-                                               " | Nome: " + ce.nome +
-                                               " | Celular: " + ce.celular
-                            );
-
-                            System.out.println("Esse é o ID que deseja editar? " +
-                                               " ID: " + ce.id +
-                                               " | Nome: " + ce.nome +
-                                               " | Celular: " + ce.celular +
-                                               " | Digite s/n: "
-                            );
-                            sc.nextLine();
-                            String resposta = sc.nextLine();
-
-                            if (resposta.equalsIgnoreCase("s")) {
-
-                                System.out.println("Novo nome: ");
-                                ce.nome = sc.nextLine();
-
-                                System.out.println("Novo celular:");
-                                ce.celular = sc.nextLine();
-
-                                System.out.println("Cliente editado com sucesso! ");
-                            }
-
-                        }
-                    }
-                if (!clienteEncontrado) {
-                    System.out.println("Cliente não encontrado. ");
-
-                }
+                 editarCliente(clientes, sc);
                     break;
 
                 case 5:
@@ -643,6 +601,52 @@ public class Main {
             }
             if (!encontrado) {
                 System.out.println("Cliente não encontrado.");
+            }
+        }
+
+        public static void editarCliente(ArrayList<Cliente> clientes, Scanner sc) {
+            System.out.println("Digite o ID que deseja editar: ");
+            int idEditar = sc.nextInt();
+
+            boolean clienteEncontrado = false;
+
+            for (int i = 0; i < clientes.size(); i++) {
+                Cliente ce = clientes.get(i);
+
+                if(ce.id == idEditar) {
+                    clienteEncontrado = true;
+
+                    System.out.println("Cliente encontrado! ");
+                    System.out.println(" ID: " + ce.id +
+                            " | Nome: " + ce.nome +
+                            " | Celular: " + ce.celular
+                    );
+
+                    System.out.println("Esse é o ID que deseja editar? " +
+                            " ID: " + ce.id +
+                            " | Nome: " + ce.nome +
+                            " | Celular: " + ce.celular +
+                            " | Digite s/n: "
+                    );
+                    sc.nextLine();
+                    String resposta = sc.nextLine();
+
+                    if (resposta.equalsIgnoreCase("s")) {
+
+                        System.out.println("Novo nome: ");
+                        ce.nome = sc.nextLine();
+
+                        System.out.println("Novo celular:");
+                        ce.celular = sc.nextLine();
+
+                        System.out.println("Cliente editado com sucesso! ");
+                    }
+
+                }
+            }
+            if (!clienteEncontrado) {
+                System.out.println("Cliente não encontrado. ");
+
             }
         }
 

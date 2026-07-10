@@ -187,30 +187,7 @@ public class Main {
                     break;
 
                 case 3:
-                    System.out.println("Digite o ID do cliente!");
-                    int id = sc.nextInt();
-
-                    boolean encontrado = false;
-
-                    for (int i = 0; i < clientes.size(); i++) {
-                        Cliente c = clientes.get(i);
-
-                        if (c.id == id) {
-                            System.out.println("Cliente encontrado! ");
-                            System.out.println(
-                                    " ID: " + c.id +
-                                            " | Nome: " + c.nome +
-                                            " | Celular: " + c.celular
-                            );
-
-                            encontrado = true;
-                            break;
-
-                        }
-                    }
-                    if (!encontrado) {
-                        System.out.println("Cliente não encontrado.");
-                    }
+                    buscarCliente(clientes, sc);
                     break;
 
                 case 4:
@@ -261,7 +238,7 @@ public class Main {
 
                 case 5:
                     System.out.println("Digite o ID que deseja excluir: ");
-                    id = sc.nextInt();
+                    int id = sc.nextInt();
 
                     boolean removido = false;
 
@@ -639,6 +616,33 @@ public class Main {
 
                 }
 
+            }
+        }
+
+        public static void buscarCliente(ArrayList<Cliente> clientes, Scanner sc) {
+            System.out.println("Digite o ID do cliente!");
+            int id = sc.nextInt();
+
+            boolean encontrado = false;
+
+            for (int i = 0; i < clientes.size(); i++) {
+                Cliente c = clientes.get(i);
+
+                if (c.id == id) {
+                    System.out.println("Cliente encontrado! ");
+                    System.out.println(
+                            " ID: " + c.id +
+                                    " | Nome: " + c.nome +
+                                    " | Celular: " + c.celular
+                    );
+
+                    encontrado = true;
+                    break;
+
+                }
+            }
+            if (!encontrado) {
+                System.out.println("Cliente não encontrado.");
             }
         }
 

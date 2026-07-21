@@ -4,6 +4,11 @@ import java.util.Scanner;
 
 
 public class Main {
+
+    static int contadorId = 1;
+    static int contadorVeiculoId = 1;
+    static int contadorOS = 1;
+
     public static void main(String[] args) {
 
         ArrayList<Cliente> clientes = new ArrayList<>();
@@ -11,11 +16,6 @@ public class Main {
         ArrayList<OrdemServico> ordensServico = new ArrayList<>();
 
         Scanner sc = new Scanner(System.in);
-
-        int contadorId = 1;
-        int contadorVeiculoId = 1;
-        int contadorOS = 1;
-
         Scanner sc2 = new Scanner(System.in);
 
         try {
@@ -146,44 +146,11 @@ public class Main {
             switch (opcao) {
 
                 case 1:
-                    Cliente novoCliente = new Cliente();
-
-                    novoCliente.id = contadorId;
-                    contadorId++;
-
-                    System.out.println("Nome: ");
-                    novoCliente.nome = sc.nextLine();
-
-                    System.out.println("Celular: ");
-                    novoCliente.celular = sc.nextLine();
-
-                    clientes.add(novoCliente);
-
-                    try {
-
-                        BufferedWriter writer = new BufferedWriter( new FileWriter("clientes.txt", true)
-                        );
-
-                        writer.write (
-                                novoCliente.id + ";" +
-                                novoCliente.nome + ";" +
-                                novoCliente.celular + ";"
-                        );
-
-                        writer.newLine();
-
-                        writer.close();
-                    } catch (IOException e) {
-
-                        System.out.println("Erro ao salvar o cliente. ");
-                    }
-
-                    System.out.println("Cliente cadastrado! ");
-                    System.out.println();
+                    cadastrarCliente(clientes, sc);
                     break;
 
                 case 2:
-                    listarClientes(clientes);
+                    listarCliente(clientes);
                     break;
 
                 case 3:
@@ -529,7 +496,44 @@ public class Main {
         // MÉTODOS DE CLIENTES
         // =========================================
 
-        public static void listarClientes(ArrayList<Cliente> clientes) {
+        public static void cadastrarCliente(ArrayList<Cliente> clientes, Scanner sc) {
+            Cliente novoCliente = new Cliente();
+
+            novoCliente.id = contadorId;
+            contadorId++;
+
+            System.out.println("Nome: ");
+            novoCliente.nome = sc.nextLine();
+
+            System.out.println("Celular: ");
+            novoCliente.celular = sc.nextLine();
+
+            clientes.add(novoCliente);
+
+            try {
+
+                BufferedWriter writer = new BufferedWriter( new FileWriter("clientes.txt", true)
+                );
+
+                writer.write (
+                        novoCliente.id + ";" +
+                                novoCliente.nome + ";" +
+                                novoCliente.celular + ";"
+                );
+
+                writer.newLine();
+
+                writer.close();
+            } catch (IOException e) {
+
+                System.out.println("Erro ao salvar o cliente. ");
+            }
+
+            System.out.println("Cliente cadastrado! ");
+            System.out.println();
+        }
+
+        public static void listarCliente(ArrayList<Cliente> clientes) {
             if (clientes.size() == 0) {
                 System.out.println("Nenhum cliente cadastrado. ");
             } else {
@@ -624,6 +628,7 @@ public class Main {
             System.out.println("Digite o ID que deseja excluir: ");
             int id = sc.nextInt();
 
+            boolean encontrado = false;
             boolean removido = false;
 
             for (int i = 0; i < clientes.size(); i++) {

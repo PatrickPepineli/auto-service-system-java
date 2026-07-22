@@ -1,7 +1,6 @@
-1;Patrick Pepineli;(11) 98216-1416;
-2;Leonardo Pepineli;(11) 98482-8540;
-3;Isadora Pepineli;(11) 98584-5089;
-4;Leonardo Collin;(11) 97645-1899;
-5;Dimas Isaiás Delfino;(11) 95694-8723;
-6;Guilherme Azeredo;(11) 96452-1998;
-7;Guilherme Azeredo;(11) 96452-1998;
+1;Patrick Pepineli;(11) 98216-1416
+2;Leonardo Pepineli;(11) 98482-8540
+3;Isadora Pepineli;(11) 98584-5089
+4;Leonardo Collin;(11) 97645-1899
+5;Dimas Isaiás Delfino;(11) 95694-8723
+7;Guilherme Azeredo;(11) 96452-1998

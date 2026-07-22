@@ -166,68 +166,7 @@ public class Main {
                     break;
 
                 case 6:
-                    Veiculo novoVeiculo = new Veiculo();
-
-                    novoVeiculo.id = contadorVeiculoId;
-                    contadorVeiculoId++;
-
-                    System.out.println("Modelo: ");
-                    novoVeiculo.modelo = sc.nextLine();
-
-                    System.out.println("Marca: ");
-                    novoVeiculo.marca = sc.nextLine();
-
-                    System.out.println("Placa: ");
-                    novoVeiculo.placa = sc.nextLine();
-
-                    System.out.println("Ano: ");
-                    novoVeiculo.ano = sc.nextInt();
-                    sc.nextLine();
-
-                    System.out.println("Digite o ID do dono do veículo: ");
-                    int IdDono = sc.nextInt();
-                    sc.nextLine();
-
-                    boolean donoEncontrado = false;
-
-                    for (int i =0; i < clientes.size(); i++) {
-                        Cliente c = clientes.get(i);
-
-                        if (c.id == IdDono) {
-                            novoVeiculo.dono = c;
-                            donoEncontrado = true;
-                        }
-                    }
-
-                    if (donoEncontrado) {
-                        veiculos.add(novoVeiculo);
-
-                        try {
-                            BufferedWriter writer = new BufferedWriter(new FileWriter("veiculos.txt", true)
-                            );
-
-
-                            writer.write (
-                                            novoVeiculo.id +  ";" +
-                                            novoVeiculo.modelo + ";" +
-                                            novoVeiculo.marca + ";" +
-                                            novoVeiculo.placa + ";" +
-                                                novoVeiculo.ano + ";" +
-                                                novoVeiculo.dono.id
-                            );
-
-                            writer.newLine();
-
-                            writer.close();
-                        } catch (IOException ex) {
-
-                            System.out.println("Erro ao salvar o veículo. ");
-                        }
-
-                        System.out.println("Veículo cadastrado! ");
-                    } else {
-                        System.out.println("Cliente não encontrado");
-                    }
+                    cadastrarVeiculo(veiculos, clientes, sc);
                     break;
 
                 case 7:
@@ -628,7 +567,6 @@ public class Main {
             System.out.println("Digite o ID que deseja excluir: ");
             int id = sc.nextInt();
 
-            boolean encontrado = false;
             boolean removido = false;
 
             for (int i = 0; i < clientes.size(); i++) {
@@ -646,6 +584,9 @@ public class Main {
 
                     if (resposta.equalsIgnoreCase("s")) {
                         clientes.remove(i);
+
+                        salvarClientes(clientes, sc);
+
                         removido = true;
 
                         System.out.println("CLliente removido com sucesso! ");
@@ -659,9 +600,101 @@ public class Main {
             }
         }
 
+
+        public static void salvarClientes(ArrayList<Cliente> clientes, Scanner sc) {
+        
+        try {
+            BufferedWriter writer = new BufferedWriter (
+                    new FileWriter("clientes.txt")
+            );        
+
+                    for (int i = 0; i <clientes.size(); i++) {
+                        Cliente c = clientes.get(i);
+
+                        writer.write(
+                                c.id + ";" +
+                                c.nome + ";" +
+                                c.celular
+                        );
+
+                    writer.newLine();
+            }
+            writer.close();
+                    
+        } catch (IOException e) {
+            
+            System.out.println("Erro ao salvar clientes. ");
+        }
+    }
+
         // =========================================
         // MÉTODOS DE VEÍCULOS
         // =========================================
+
+        public static void  cadastrarVeiculo(ArrayList<Veiculo> veiculos, ArrayList<Cliente> clientes, Scanner sc) {
+            Veiculo novoVeiculo = new Veiculo();
+
+            novoVeiculo.id = contadorVeiculoId;
+            contadorVeiculoId++;
+
+            System.out.println("Modelo: ");
+            novoVeiculo.modelo = sc.nextLine();
+
+            System.out.println("Marca: ");
+            novoVeiculo.marca = sc.nextLine();
+
+            System.out.println("Placa: ");
+            novoVeiculo.placa = sc.nextLine();
+
+            System.out.println("Ano: ");
+            novoVeiculo.ano = sc.nextInt();
+            sc.nextLine();
+
+            System.out.println("Digite o ID do dono do veículo: ");
+            int IdDono = sc.nextInt();
+            sc.nextLine();
+
+            boolean donoEncontrado = false;
+
+            for (int i =0; i < clientes.size(); i++) {
+                Cliente c = clientes.get(i);
+
+                if (c.id == IdDono) {
+                    novoVeiculo.dono = c;
+                    donoEncontrado = true;
+                }
+            }
+
+            if (donoEncontrado) {
+                veiculos.add(novoVeiculo);
+
+                try {
+                    BufferedWriter writer = new BufferedWriter(new FileWriter("veiculos.txt", true)
+                    );
+
+
+                    writer.write (
+                            novoVeiculo.id +  ";" +
+                                    novoVeiculo.modelo + ";" +
+                                    novoVeiculo.marca + ";" +
+                                    novoVeiculo.placa + ";" +
+                                    novoVeiculo.ano + ";" +
+                                    novoVeiculo.dono.id
+                    );
+
+                    writer.newLine();
+
+                    writer.close();
+                } catch (IOException ex) {
+
+                    System.out.println("Erro ao salvar o veículo. ");
+                }
+
+                System.out.println("Veículo cadastrado! ");
+            } else {
+                System.out.println("Cliente não encontrado");
+            }
+        }
 
         public static void listarVeiculos(ArrayList<Veiculo> veiculos) {
             if (veiculos.size() == 0) {
